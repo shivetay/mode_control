@@ -1,5 +1,7 @@
 import { DatabaseProvider } from '@/context/DatabaseContext';
+import { useNotificationBootstrap } from '@/hooks/useNotificationBootstrap';
 import { theme } from '@/lib/constants/theme';
+import '@/lib/notifications/setup';
 import {
   BeVietnamPro_400Regular,
   BeVietnamPro_500Medium,
@@ -19,6 +21,25 @@ import 'react-native-reanimated';
 export { ErrorBoundary } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
+
+function RootLayoutContent() {
+  useNotificationBootstrap();
+
+  return (
+    <>
+      <StatusBar style="dark" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: theme.colors.background },
+        }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="mood/notes" />
+        <Stack.Screen name="settings" />
+      </Stack>
+    </>
+  );
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -47,16 +68,7 @@ export default function RootLayout() {
 
   return (
     <DatabaseProvider>
-      <StatusBar style="dark" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: theme.colors.background },
-        }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="mood/notes" />
-        <Stack.Screen name="settings" />
-      </Stack>
+      <RootLayoutContent />
     </DatabaseProvider>
   );
 }

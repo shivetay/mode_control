@@ -13,3 +13,13 @@ export type MoodFilters = {
   month?: number;
   day?: number;
 };
+
+export type ReminderFrequency = 'every_4h' | 'twice_daily' | 'once_daily';
+
+export type ReminderSettings = {
+  remindersEnabled: boolean;
+  frequency: ReminderFrequency;
+  intervalHours: number;
+  morningTime: string;
+  eveningTime: string;
+};

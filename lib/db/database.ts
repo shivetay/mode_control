@@ -18,6 +18,10 @@ export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
     );
     CREATE INDEX IF NOT EXISTS idx_mood_entries_created_at ON mood_entries(created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_mood_entries_mood ON mood_entries(mood);
+    CREATE TABLE IF NOT EXISTS app_settings (
+      key TEXT PRIMARY KEY NOT NULL,
+      value TEXT NOT NULL
+    );
   `);
 
   return db;

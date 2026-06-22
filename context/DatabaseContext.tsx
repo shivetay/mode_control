@@ -1,4 +1,5 @@
 import { getDatabase } from '@/lib/db/database';
+import { scheduleRemindersFromSettings } from '@/lib/notifications/scheduler';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 type DatabaseContextValue = {
@@ -12,6 +13,7 @@ export function DatabaseProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     getDatabase()
+      .then(() => scheduleRemindersFromSettings())
       .then(() => setReady(true))
       .catch(console.error);
   }, []);

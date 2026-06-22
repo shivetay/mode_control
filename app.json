@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mc",
-    "slug": "mc",
+    "name": "Dziennik Nastroju",
+    "slug": "dziennik-nastroju",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -33,7 +33,10 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-sqlite",
+      "expo-font",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true

@@ -55,10 +55,19 @@ Wszystkie dane, które wprowadzasz do Aplikacji – w tym zapisany nastrój, not
 
 Aplikacja może wysyłać lokalne przypomnienia o zapisaniu nastroju. Są one planowane wyłącznie na Twoim urządzeniu i nie wymagają przesyłania danych na zewnętrzne serwery.
 
-4. Ważne zastrzeżenie
+4. Numery pomocy i linki zewnętrzne
+
+Sekcja „Gdzie szukać pomocy” zawiera numery telefonów zaufania oraz odnośniki do publicznie dostępnych stron informacyjnych (m.in. portale rządowe, ministerstw zdrowia oraz oficjalne strony operatorów infolinii). Te dane są wbudowane w aplikację i nie są pobierane automatycznie z internetu podczas korzystania z Aplikacji.
+
+• Wybór kraju lub regionu numerów jest zapisywany wyłącznie lokalnie na Twoim urządzeniu.
+• Po kliknięciu numeru telefonu lub linku Aplikacja może otworzyć połączenie telefoniczne albo przeglądarkę systemową. W takim przypadku obowiązują zasady prywatności i plików cookies witryny docelowej lub operatora infolinii — poza kontrolą twórcy Aplikacji.
+• Numery i godziny działania mogą ulec zmianie. Przed skorzystaniem z pomocy sprawdź aktualność informacji na wskazanej stronie źródłowej.
+• Aplikacja nie rejestruje połączeń telefonicznych ani nie monitoruje, czy z numerów pomocy skorzystano.
+
+5. Ważne zastrzeżenie
 
 Dziennik Nastroju służy wyłącznie do samodzielnego notowania samopoczucia i nie zastępuje profesjonalnej porady psychologicznej, psychiatrycznej ani medycznej. W razie niepokojących objawów skonsultuj się ze specjalistą.
 
-5. Kontakt
+6. Kontakt
 
 W razie pytań dotyczących działania Aplikacji lub niniejszej Polityki Prywatności możesz skontaktować się z twórcą pod adresem e-mail: lddev@outlook.com`;

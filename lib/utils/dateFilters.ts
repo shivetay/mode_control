@@ -1,26 +1,15 @@
 import { MoodFilters } from '@/lib/types';
+import type { AppLocale } from '@/lib/i18n/types';
+import { getMessages } from '@/lib/i18n/translate';
 
-const MONTHS = [
-  'Styczeń',
-  'Luty',
-  'Marzec',
-  'Kwiecień',
-  'Maj',
-  'Czerwiec',
-  'Lipiec',
-  'Sierpień',
-  'Wrzesień',
-  'Październik',
-  'Listopad',
-  'Grudzień',
-];
+export function formatDateFilterSummary(filters: MoodFilters, locale: AppLocale): string {
+  const { months, dates } = getMessages(locale);
 
-export function formatDateFilterSummary(filters: MoodFilters): string {
   if (!filters.year || !filters.month || !filters.day) {
-    return 'Wszystkie';
+    return dates.all;
   }
 
-  return `${filters.day} ${MONTHS[filters.month - 1]} ${filters.year}`;
+  return `${filters.day} ${months[filters.month - 1]} ${filters.year}`;
 }
 
 export function filtersToDateString(filters: MoodFilters): string | undefined {

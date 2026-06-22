@@ -1,6 +1,7 @@
 import { MoodSelector } from '@/components/MoodSelector';
 import { OutlineButton } from '@/components/OutlineButton';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodType } from '@/lib/types';
 import { useRouter } from 'expo-router';
@@ -11,6 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export default function AddMoodScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { messages } = useTranslation();
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
 
   const handleNext = () => {
@@ -22,16 +24,16 @@ export default function AddMoodScreen() {
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="Dziennik Nastroju" onBack={() => router.replace('/')} />
+      <ScreenHeader title={messages.appName} onBack={() => router.replace('/')} />
 
       <View style={[styles.main, { paddingBottom: insets.bottom + theme.spacing.lg }]}>
         <View style={styles.canvas}>
-          <Text style={styles.question}>Jaki masz nastrój?</Text>
+          <Text style={styles.question}>{messages.add.question}</Text>
 
           <MoodSelector selected={selectedMood} onSelect={setSelectedMood} />
 
           <OutlineButton
-            label="Dalej"
+            label={messages.common.next}
             onPress={handleNext}
             disabled={!selectedMood}
             style={styles.cta}

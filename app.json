@@ -53,7 +53,8 @@
           "defaultChannel": "reminders",
           "sounds": []
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

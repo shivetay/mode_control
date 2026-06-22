@@ -1,5 +1,5 @@
 import { getReminderSettings } from '@/lib/db/settingsRepository';
-import { settingsCopy } from '@/lib/constants/settingsCopy';
+import { getNotificationCopy } from '@/lib/i18n/notificationCopy';
 import type { ReminderSettings } from '@/lib/types';
 import {
   clampIntervalHours,
@@ -36,10 +36,13 @@ function buildIntervalTrigger(hours: number) {
   };
 }
 
-function buildNotificationContent(): Notifications.NotificationContentInput {
+function buildNotificationContent(
+  title: string,
+  body: string,
+): Notifications.NotificationContentInput {
   return {
-    title: 'Dziennik Nastroju',
-    body: settingsCopy.notificationBody,
+    title,
+    body,
     data: { ...REMINDER_DATA },
     sound: 'default',
     ...(Platform.OS === 'android'
@@ -67,12 +70,12 @@ export function hasNotificationAccess(
   return permissions.status === 'granted';
 }
 
-async function ensureAndroidChannel(): Promise<void> {
+async function ensureAndroidChannel(channelName: string): Promise<void> {
   if (Platform.OS !== 'android') {
     return;
   }
   await Notifications.setNotificationChannelAsync(REMINDER_CHANNEL_ID, {
-    name: settingsCopy.reminderChannelName,
+    name: channelName,
     importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 250, 250, 250],
     lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
@@ -87,7 +90,8 @@ export async function ensureNotificationPermissions(): Promise<boolean> {
     return false;
   }
 
-  await ensureAndroidChannel();
+  const copy = await getNotificationCopy();
+  await ensureAndroidChannel(copy.channelName);
 
   const existing = await Notifications.getPermissionsAsync();
   if (hasNotificationAccess(existing)) {
@@ -144,7 +148,8 @@ export async function scheduleRemindersFromSettings(): Promise<ScheduleReminders
     return { scheduled: true, permissionGranted: true };
   }
 
-  await ensureAndroidChannel();
+  const copy = await getNotificationCopy();
+  await ensureAndroidChannel(copy.channelName);
 
   const settings = await getReminderSettings();
   if (!settings.remindersEnabled) {
@@ -159,7 +164,7 @@ export async function scheduleRemindersFromSettings(): Promise<ScheduleReminders
 
   await cancelAllReminders();
 
-  const content = buildNotificationContent();
+  const content = buildNotificationContent(copy.title, copy.body);
 
   if (settings.frequency === 'every_4h') {
     const hours = clampIntervalHours(settings.intervalHours);

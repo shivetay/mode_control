@@ -1,4 +1,5 @@
 import { getMoodIcon, MOODS } from '@/lib/constants/moods';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodType } from '@/lib/types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -11,6 +12,7 @@ type MoodSelectorProps = {
 
 export function MoodSelector({ selected, onSelect }: MoodSelectorProps) {
   const { width } = useWindowDimensions();
+  const { messages } = useTranslation();
   const tileSize = (width - theme.spacing.margin * 2 - theme.spacing.md) / 2;
 
   return (
@@ -33,7 +35,9 @@ export function MoodSelector({ selected, onSelect }: MoodSelectorProps) {
               color={isSelected ? theme.colors.primary : theme.colors.outline}
               style={styles.icon}
             />
-            <Text style={[styles.label, isSelected && styles.labelSelected]}>{mood.label}</Text>
+            <Text style={[styles.label, isSelected && styles.labelSelected]}>
+              {messages.moods[mood.id]}
+            </Text>
           </Pressable>
         );
       })}

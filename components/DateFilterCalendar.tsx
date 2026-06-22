@@ -1,5 +1,7 @@
-import '@/lib/utils/calendarLocale';
+import { configureCalendarLocale } from '@/lib/utils/calendarLocale';
 import { theme } from '@/lib/constants/theme';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
+import { LOCALE_DATE_FORMAT } from '@/lib/i18n/types';
 import { MoodFilters } from '@/lib/types';
 import { filtersToDateString, parseDateString, toDateString } from '@/lib/utils/dateFilters';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,6 +24,8 @@ type DateFilterCalendarProps = {
 };
 
 export function DateFilterCalendar({ filters, entryDates, onChange }: DateFilterCalendarProps) {
+  const { locale, messages } = useTranslation();
+  const { history, common, dates } = messages;
   const today = toDateString(new Date());
   const selectedDate = filtersToDateString(filters);
 
@@ -30,6 +34,10 @@ export function DateFilterCalendar({ filters, entryDates, onChange }: DateFilter
   const [pickerDate, setPickerDate] = useState(() =>
     selectedDate ? parseDateString(selectedDate) : new Date()
   );
+
+  useEffect(() => {
+    configureCalendarLocale(locale, messages);
+  }, [locale, messages]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -113,21 +121,21 @@ export function DateFilterCalendar({ filters, entryDates, onChange }: DateFilter
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>
-        <Text style={styles.hint}>Wybierz dzień, aby filtrować wpisy</Text>
+        <Text style={styles.hint}>{history.calendarHint}</Text>
         <Pressable onPress={handleClear} disabled={!selectedDate}>
           <Text style={[styles.clearDate, !selectedDate && styles.clearDateDisabled]}>
-            Wszystkie
+            {dates.all}
           </Text>
         </Pressable>
       </View>
 
       <Pressable onPress={openPicker} style={styles.jumpButton}>
         <Ionicons name="calendar-outline" size={16} color={theme.colors.primary} />
-        <Text style={styles.jumpButtonText}>Przejdź do daty</Text>
+        <Text style={styles.jumpButtonText}>{history.jumpToDate}</Text>
       </Pressable>
 
       <Calendar
-        key={visibleDate.slice(0, 7)}
+        key={`${locale}-${visibleDate.slice(0, 7)}`}
         current={visibleDate}
         onDayPress={handleDayPress}
         onMonthChange={(month) => setVisibleDate(month.dateString)}
@@ -162,11 +170,11 @@ export function DateFilterCalendar({ filters, entryDates, onChange }: DateFilter
           <View style={styles.modalSheet}>
             <View style={styles.modalHeader}>
               <Pressable onPress={() => setPickerVisible(false)}>
-                <Text style={styles.modalAction}>Anuluj</Text>
+                <Text style={styles.modalAction}>{common.cancel}</Text>
               </Pressable>
-              <Text style={styles.modalTitle}>Wybierz datę</Text>
+              <Text style={styles.modalTitle}>{history.selectDate}</Text>
               <Pressable onPress={handlePickerConfirm}>
-                <Text style={[styles.modalAction, styles.modalConfirm]}>Gotowe</Text>
+                <Text style={[styles.modalAction, styles.modalConfirm]}>{common.done}</Text>
               </Pressable>
             </View>
             <DateTimePicker
@@ -174,7 +182,7 @@ export function DateFilterCalendar({ filters, entryDates, onChange }: DateFilter
               mode="date"
               display="spinner"
               maximumDate={new Date()}
-              locale="pl-PL"
+              locale={LOCALE_DATE_FORMAT[locale]}
               onChange={handlePickerChange}
               style={styles.iosPicker}
             />

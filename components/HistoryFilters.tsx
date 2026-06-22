@@ -1,5 +1,6 @@
 import { DateFilterCalendar } from '@/components/DateFilterCalendar';
 import { MOODS, getMoodLabel } from '@/lib/constants/moods';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodFilters, MoodType } from '@/lib/types';
 import { formatDateFilterSummary } from '@/lib/utils/dateFilters';
@@ -71,12 +72,14 @@ export function HistoryFilters({
   onChange,
   onClear,
 }: HistoryFiltersProps) {
+  const { locale, messages } = useTranslation();
+  const copy = messages.history;
   const [moodExpanded, setMoodExpanded] = useState(false);
   const [dateExpanded, setDateExpanded] = useState(false);
 
   const hasFilters = Boolean(filters.mood || filters.year || filters.month || filters.day);
-  const moodSummary = filters.mood ? getMoodLabel(filters.mood) : 'Wszystkie';
-  const dateSummary = formatDateFilterSummary(filters);
+  const moodSummary = filters.mood ? getMoodLabel(filters.mood, locale) : messages.common.all;
+  const dateSummary = formatDateFilterSummary(filters, locale);
 
   const moodPairs: [MoodType, MoodType][] = [
     [MOODS[0].id, MOODS[1].id],
@@ -86,22 +89,22 @@ export function HistoryFilters({
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.filtersTitle}>Filtry</Text>
+        <Text style={styles.filtersTitle}>{copy.filtersTitle}</Text>
         {hasFilters ? (
           <Pressable onPress={onClear}>
-            <Text style={styles.clearText}>Wyczyść</Text>
+            <Text style={styles.clearText}>{messages.common.clear}</Text>
           </Pressable>
         ) : null}
       </View>
 
       <FilterSection
-        title="Nastrój"
+        title={copy.moodFilter}
         summary={moodSummary}
         expanded={moodExpanded}
         onToggle={() => setMoodExpanded((value) => !value)}>
         <View style={styles.moodGrid}>
           <Chip
-            label="Wszystkie"
+            label={messages.common.all}
             active={!filters.mood}
             onPress={() => onChange({ ...filters, mood: undefined })}
             style={styles.chipFull}
@@ -114,7 +117,7 @@ export function HistoryFilters({
                 return (
                   <Chip
                     key={mood.id}
-                    label={mood.label}
+                    label={messages.moods[mood.id]}
                     active={filters.mood === mood.id}
                     onPress={() =>
                       onChange({
@@ -132,7 +135,7 @@ export function HistoryFilters({
       </FilterSection>
 
       <FilterSection
-        title="Data"
+        title={copy.dateFilter}
         summary={dateSummary}
         expanded={dateExpanded}
         onToggle={() => setDateExpanded((value) => !value)}>

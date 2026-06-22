@@ -1,5 +1,6 @@
 import { MoodFaceIcon } from '@/components/MoodSelector';
 import { getMoodLabel } from '@/lib/constants/moods';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodEntry } from '@/lib/types';
 import { formatEntryDate, formatFullDate } from '@/lib/utils/date';
@@ -13,12 +14,14 @@ type EntryListItemProps = {
 
 export function EntryListItem({ entry }: EntryListItemProps) {
   const [expanded, setExpanded] = useState(false);
+  const { locale, messages } = useTranslation();
+  const copy = messages.history;
 
   return (
     <View style={styles.wrapper}>
       <Pressable onPress={() => setExpanded((value) => !value)} style={styles.row}>
         <MoodFaceIcon mood={entry.mood} size={24} />
-        <Text style={styles.date}>{formatEntryDate(entry.created_at)}</Text>
+        <Text style={styles.date}>{formatEntryDate(entry.created_at, locale)}</Text>
         <Ionicons
           name={expanded ? 'chevron-up' : 'chevron-down'}
           size={18}
@@ -28,12 +31,14 @@ export function EntryListItem({ entry }: EntryListItemProps) {
 
       {expanded ? (
         <View style={styles.details}>
-          <Text style={styles.moodLabel}>Nastrój: {getMoodLabel(entry.mood)}</Text>
-          <Text style={styles.fullDate}>{formatFullDate(entry.created_at)}</Text>
+          <Text style={styles.moodLabel}>
+            {copy.moodLabel} {getMoodLabel(entry.mood, locale)}
+          </Text>
+          <Text style={styles.fullDate}>{formatFullDate(entry.created_at, locale)}</Text>
           {entry.notes ? (
             <Text style={styles.notes}>{entry.notes}</Text>
           ) : (
-            <Text style={styles.noNotes}>Brak notatek</Text>
+            <Text style={styles.noNotes}>{copy.noNotes}</Text>
           )}
         </View>
       ) : null}

@@ -3,6 +3,7 @@ import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { insertMoodEntry } from '@/lib/db/moodEntries';
 import { getMoodLabel } from '@/lib/constants/moods';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodType } from '@/lib/types';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,13 +21,15 @@ import {
 
 export default function NotesScreen() {
   const router = useRouter();
+  const { locale, messages } = useTranslation();
+  const copy = messages.notes;
   const { mood } = useLocalSearchParams<{ mood: MoodType }>();
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     if (!mood || !['swietny', 'dobry', 'obojetny', 'slaby'].includes(mood)) {
-      Alert.alert('Błąd', 'Nie wybrano nastroju.');
+      Alert.alert(messages.common.error, copy.noMoodError);
       return;
     }
 
@@ -35,7 +38,7 @@ export default function NotesScreen() {
       await insertMoodEntry(mood, notes);
       router.replace('/history');
     } catch {
-      Alert.alert('Błąd', 'Nie udało się zapisać wpisu. Spróbuj ponownie.');
+      Alert.alert(messages.common.error, copy.saveError);
     } finally {
       setSaving(false);
     }
@@ -46,22 +49,21 @@ export default function NotesScreen() {
       style={styles.flex}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScreenContainer scroll={false} contentStyle={styles.content}>
-        <ScreenHeader title="Uwagi" />
+        <ScreenHeader title={copy.title} />
 
-        <Text style={styles.description}>
-          Zapisz swoje przemyślenia, obserwacje lub co przyjdzie Ci do głowy. To jest Twoja
-          bezpieczna przestrzeń.
-        </Text>
+        <Text style={styles.description}>{copy.description}</Text>
 
         {mood ? (
-          <Text style={styles.moodBadge}>Wybrany nastrój: {getMoodLabel(mood)}</Text>
+          <Text style={styles.moodBadge}>
+            {copy.moodPrefix} {getMoodLabel(mood, locale)}
+          </Text>
         ) : null}
 
         <View style={styles.inputWrap}>
           <TextInput
             value={notes}
             onChangeText={setNotes}
-            placeholder="Zacznij pisać tutaj..."
+            placeholder={copy.placeholder}
             placeholderTextColor={theme.colors.textMuted}
             multiline
             textAlignVertical="top"
@@ -76,7 +78,7 @@ export default function NotesScreen() {
         </View>
 
         <OutlineButton
-          label="Zapisz"
+          label={messages.common.save}
           icon="save-outline"
           onPress={handleSave}
           loading={saving}

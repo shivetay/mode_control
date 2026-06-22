@@ -7,6 +7,7 @@ import { ScreenHeader } from '@/components/ScreenHeader';
 import { useDatabaseReady } from '@/context/DatabaseContext';
 import { getEntryDates, getMoodEntries, getMoodEntryCount } from '@/lib/db/moodEntries';
 import { theme } from '@/lib/constants/theme';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { MoodEntry, MoodFilters } from '@/lib/types';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -16,6 +17,8 @@ const PAGE_SIZE = 10;
 
 export default function HistoryScreen() {
   const router = useRouter();
+  const { messages } = useTranslation();
+  const copy = messages.history;
   const ready = useDatabaseReady();
   const [entries, setEntries] = useState<MoodEntry[]>([]);
   const [filters, setFilters] = useState<MoodFilters>({});
@@ -85,11 +88,11 @@ export default function HistoryScreen() {
 
   return (
     <ScreenContainer>
-      <ScreenHeader title="Historia" onBack={() => router.replace('/')} />
+      <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />
 
       <View style={styles.headerBlock}>
-        <Text style={styles.title}>Twoja podróż</Text>
-        <Text style={styles.subtitle}>Zapis Twojego emocjonalnego krajobrazu.</Text>
+        <Text style={styles.title}>{copy.journeyTitle}</Text>
+        <Text style={styles.subtitle}>{copy.journeySubtitle}</Text>
       </View>
 
       <HistoryFilters
@@ -102,7 +105,7 @@ export default function HistoryScreen() {
       {loading ? (
         <ActivityIndicator color={theme.colors.text} style={styles.loader} />
       ) : entries.length === 0 ? (
-        <Text style={styles.empty}>Brak wpisów dla wybranych filtrów.</Text>
+        <Text style={styles.empty}>{copy.empty}</Text>
       ) : (
         <SwipePageContainer
           enabled={canPaginate && !loading}

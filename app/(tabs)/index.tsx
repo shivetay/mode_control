@@ -1,30 +1,31 @@
 import { NavCard } from '@/components/NavCard';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { messages } = useTranslation();
+  const copy = messages.home;
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="Dziennik Nastroju" showBack={false} />
+      <ScreenHeader title={messages.appName} showBack={false} />
 
       <ScreenContainer contentStyle={styles.content}>
         <View style={styles.welcome}>
-          <Text style={styles.welcomeLead}>Witaj z powrotem,</Text>
-          <Text style={styles.welcomeBody}>
-            Jak się dzisiaj czujesz? Wybierz jedną z opcji poniżej.
-          </Text>
+          <Text style={styles.welcomeLead}>{copy.welcomeLead}</Text>
+          <Text style={styles.welcomeBody}>{copy.welcomeBody}</Text>
         </View>
 
         <View style={styles.grid}>
           <NavCard
             variant="featured"
-            title="Dodaj Nastrój"
-            subtitle="Zapisz swoje odczucia"
+            title={copy.addMoodTitle}
+            subtitle={copy.addMoodSubtitle}
             icon="create-outline"
             onPress={() => router.push('/add')}
           />
@@ -32,15 +33,15 @@ export default function HomeScreen() {
           <View style={styles.row}>
             <NavCard
               variant="compact"
-              title="Historia"
-              subtitle="Poprzednie wpisy"
+              title={copy.historyTitle}
+              subtitle={copy.historySubtitle}
               icon="time-outline"
               onPress={() => router.push('/history')}
             />
             <NavCard
               variant="compact"
-              title="Informacje"
-              subtitle="Porady i wiedza"
+              title={copy.infoTitle}
+              subtitle={copy.infoSubtitle}
               icon="information-circle-outline"
               onPress={() => router.push('/info')}
             />
@@ -48,8 +49,8 @@ export default function HomeScreen() {
 
           <NavCard
             variant="settings"
-            title="Ustawienia"
-            subtitle="Konfiguracja aplikacji"
+            title={copy.settingsTitle}
+            subtitle={copy.settingsSubtitle}
             icon="settings-outline"
             onPress={() => router.push('/settings')}
           />

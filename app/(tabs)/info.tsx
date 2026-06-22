@@ -3,25 +3,28 @@ import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { useHelplineRegion } from '@/hooks/useHelplineRegion';
 import { getHelplinesForRegion, HELPLINE_REGIONS } from '@/lib/helplines';
-import { pl } from '@/lib/i18n/pl';
+import { getHelplineLineMessage } from '@/lib/i18n/helplines';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
+import { LOCALE_DATE_FORMAT } from '@/lib/i18n/types';
 import { theme } from '@/lib/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 
-function formatVerifiedDate(isoDate: string): string {
+function formatVerifiedDate(isoDate: string, localeTag: string): string {
   const [year, month, day] = isoDate.split('-').map(Number);
   if (!year || !month || !day) {
     return isoDate;
   }
-  return new Date(year, month - 1, day).toLocaleDateString('pl-PL');
+  return new Date(year, month - 1, day).toLocaleDateString(localeTag);
 }
 
 export default function InfoScreen() {
   const router = useRouter();
+  const { locale, messages } = useTranslation();
   const { region, loading, persist } = useHelplineRegion();
-  const copy = pl.info;
+  const copy = messages.info;
 
   if (loading || !region) {
     return (
@@ -58,32 +61,39 @@ export default function InfoScreen() {
       </View>
 
       <SettingsCard title={copy.helpTitle} icon="call-outline">
-        {countryData.helplines.map((line, index) => (
-          <View key={line.id}>
-            {index > 0 ? <View style={styles.divider} /> : null}
-            <View style={styles.helpline}>
-              <Pressable
-                accessibilityRole="link"
-                onPress={() => void Linking.openURL(`tel:${line.dial}`)}
-                style={({ pressed }) => [pressed && styles.pressed]}>
-                <Text style={styles.phone}>{line.phone}</Text>
-              </Pressable>
-              <Text style={styles.description}>{line.description}</Text>
-              <Pressable
-                accessibilityRole="link"
-                onPress={() => void Linking.openURL(line.url)}
-                style={({ pressed }) => [styles.linkRow, pressed && styles.pressed]}>
-                <Ionicons name="open-outline" size={16} color={theme.colors.primary} />
-                <Text style={styles.linkText}>{copy.moreInfo}</Text>
-              </Pressable>
+        {countryData.helplines.map((line, index) => {
+          const lineCopy = getHelplineLineMessage(locale, region, line.id);
+          if (!lineCopy) {
+            return null;
+          }
+
+          return (
+            <View key={line.id}>
+              {index > 0 ? <View style={styles.divider} /> : null}
+              <View style={styles.helpline}>
+                <Pressable
+                  accessibilityRole="link"
+                  onPress={() => void Linking.openURL(`tel:${line.dial}`)}
+                  style={({ pressed }) => [pressed && styles.pressed]}>
+                  <Text style={styles.phone}>{lineCopy.phone}</Text>
+                </Pressable>
+                <Text style={styles.description}>{lineCopy.description}</Text>
+                <Pressable
+                  accessibilityRole="link"
+                  onPress={() => void Linking.openURL(line.url)}
+                  style={({ pressed }) => [styles.linkRow, pressed && styles.pressed]}>
+                  <Ionicons name="open-outline" size={16} color={theme.colors.primary} />
+                  <Text style={styles.linkText}>{copy.moreInfo}</Text>
+                </Pressable>
+              </View>
             </View>
-          </View>
-        ))}
+          );
+        })}
 
         <View style={styles.metaDivider} />
 
         <Text style={styles.meta}>
-          {copy.verifiedLabel}: {formatVerifiedDate(countryData.verifiedAt)}
+          {copy.verifiedLabel}: {formatVerifiedDate(countryData.verifiedAt, LOCALE_DATE_FORMAT[locale])}
         </Text>
         <Pressable
           accessibilityRole="link"

@@ -1,4 +1,5 @@
 import { theme } from '@/lib/constants/theme';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -10,6 +11,7 @@ type PaginationBarProps = {
 };
 
 export function PaginationBar({ page, totalPages, onPrevious, onNext }: PaginationBarProps) {
+  const { messages } = useTranslation();
   const canGoPrevious = page > 1;
   const canGoNext = page < totalPages;
 
@@ -25,7 +27,7 @@ export function PaginationBar({ page, totalPages, onPrevious, onNext }: Paginati
           color={canGoPrevious ? theme.colors.primary : theme.colors.textMuted}
         />
         <Text style={[styles.buttonText, !canGoPrevious && styles.buttonTextDisabled]}>
-          Poprzednia
+          {messages.history.previous}
         </Text>
       </Pressable>
 
@@ -38,7 +40,7 @@ export function PaginationBar({ page, totalPages, onPrevious, onNext }: Paginati
         disabled={!canGoNext}
         style={[styles.button, !canGoNext && styles.buttonDisabled]}>
         <Text style={[styles.buttonText, !canGoNext && styles.buttonTextDisabled]}>
-          Następna
+          {messages.history.next}
         </Text>
         <Ionicons
           name="chevron-forward"

@@ -1,5 +1,6 @@
 import { DatabaseProvider } from '@/context/DatabaseContext';
 import { useNotificationBootstrap } from '@/hooks/useNotificationBootstrap';
+import { I18nProvider } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import '@/lib/notifications/setup';
 import {
@@ -68,7 +69,9 @@ export default function RootLayout() {
 
   return (
     <DatabaseProvider>
-      <RootLayoutContent />
+      <I18nProvider>
+        <RootLayoutContent />
+      </I18nProvider>
     </DatabaseProvider>
   );
 }

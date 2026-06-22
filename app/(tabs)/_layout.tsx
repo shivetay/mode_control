@@ -1,11 +1,13 @@
 import { theme } from '@/lib/constants/theme';
+import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs, usePathname } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function TabLayout() {
+function TabNavigator() {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
+  const { messages } = useTranslation();
   const isHome = pathname === '/' || pathname === '/index' || pathname.endsWith('/index');
 
   return (
@@ -41,14 +43,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Główna',
+          title: messages.tabs.home,
           tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="add"
         options={{
-          title: 'Dodaj',
+          title: messages.tabs.add,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
@@ -57,14 +59,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="history"
         options={{
-          title: 'Historia',
+          title: messages.tabs.history,
           tabBarIcon: ({ color, size }) => <Ionicons name="time-outline" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="info"
         options={{
-          title: 'Informacje',
+          title: messages.tabs.info,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="information-circle-outline" size={size} color={color} />
           ),
@@ -72,4 +74,8 @@ export default function TabLayout() {
       />
     </Tabs>
   );
+}
+
+export default function TabLayout() {
+  return <TabNavigator />;
 }

@@ -22,9 +22,7 @@ export type HelplineRegion = (typeof HELPLINE_REGIONS)[number];
 
 export type HelplineEntry = {
   id: string;
-  phone: string;
   dial: string;
-  description: string;
   url: string;
 };
 

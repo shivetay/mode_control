@@ -1,17 +1,5 @@
-const MONTHS_PL = [
-  'sty',
-  'lut',
-  'mar',
-  'kwi',
-  'maj',
-  'cze',
-  'lip',
-  'sie',
-  'wrz',
-  'paź',
-  'lis',
-  'gru',
-];
+import { LOCALE_DATE_FORMAT, type AppLocale } from '@/lib/i18n/types';
+import { getMessages } from '@/lib/i18n/translate';
 
 function isSameDay(a: Date, b: Date): boolean {
   return (
@@ -21,34 +9,36 @@ function isSameDay(a: Date, b: Date): boolean {
   );
 }
 
-function formatTime(date: Date): string {
-  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+function formatTime(date: Date, localeTag: string): string {
+  return date.toLocaleTimeString(localeTag, { hour: '2-digit', minute: '2-digit' });
 }
 
-export function formatEntryDate(isoDate: string): string {
+export function formatEntryDate(isoDate: string, locale: AppLocale): string {
   const date = new Date(isoDate);
   const now = new Date();
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  const time = formatTime(date);
+  const localeTag = LOCALE_DATE_FORMAT[locale];
+  const { dates, monthsShort } = getMessages(locale);
+  const time = formatTime(date, localeTag);
 
   if (isSameDay(date, now)) {
-    return `Dziś, ${time}`;
+    return `${dates.today}, ${time}`;
   }
 
   if (isSameDay(date, yesterday)) {
-    return `Wczoraj, ${time}`;
+    return `${dates.yesterday}, ${time}`;
   }
 
   const day = date.getDate();
-  const month = MONTHS_PL[date.getMonth()];
+  const month = monthsShort[date.getMonth()];
   return `${day} ${month}, ${time}`;
 }
 
-export function formatFullDate(isoDate: string): string {
+export function formatFullDate(isoDate: string, locale: AppLocale): string {
   const date = new Date(isoDate);
-  return date.toLocaleString('pl-PL', {
+  return date.toLocaleString(LOCALE_DATE_FORMAT[locale], {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

@@ -134,6 +134,12 @@ export const en = {
     notificationBody: 'Time to log your mood in the journal.',
     reminderChannelName: 'Reminders',
   },
+  privacyConsent: {
+    title: 'Privacy policy',
+    message: 'This is our privacy policy. Please read it and accept to use the app.',
+    openInBrowser: 'Open in browser',
+    accept: 'I accept and want to use the app',
+  },
   privacyPolicy: `Last updated: June 2026
 
 Your privacy is our absolute priority. This Privacy Policy explains how the Mood Journal app (the "App") handles your data. Our approach is simple: your data belongs to you alone.

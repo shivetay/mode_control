@@ -134,6 +134,13 @@ export const it = {
     notificationBody: 'È ora di registrare il tuo umore nel diario.',
     reminderChannelName: 'Promemoria',
   },
+  privacyConsent: {
+    title: 'Informativa sulla privacy',
+    message:
+      "Questa è la nostra informativa sulla privacy. Leggila e accettala per usare l'app.",
+    openInBrowser: 'Apri nel browser',
+    accept: "Accetto e voglio usare l'app",
+  },
   privacyPolicy: `Ultimo aggiornamento: giugno 2026
 
 La tua privacy è la nostra priorità assoluta. La presente Informativa sulla privacy spiega come l'app Diario dell'umore (l'«App») tratta i tuoi dati. Il nostro approccio è semplice: i tuoi dati appartengono esclusivamente a te.

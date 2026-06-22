@@ -134,6 +134,13 @@ export const lv = {
     notificationBody: 'Laiks fiksēt garastāvokli dienasgrāmatā.',
     reminderChannelName: 'Atgādinājumi',
   },
+  privacyConsent: {
+    title: 'Privātuma politika',
+    message:
+      'Šī ir mūsu privātuma politika. Lūdzu, izlasiet to un pieņemiet, lai izmantotu lietotni.',
+    openInBrowser: 'Atvērt pārlūkprogrammā',
+    accept: 'Es piekrītu un vēlos izmantot lietotni',
+  },
   privacyPolicy: `Pēdējoreiz atjaunināts: 2026. gada jūnijs
 
 Jūsu privātums ir mūsu absolūta prioritāte. Šī privātuma politika skaidro, kā lietotne Garastāvokļa dienasgrāmata («Lietotne») apstrādā jūsu datus. Mūsu pieeja ir vienkārša: jūsu dati pieder tikai jums.

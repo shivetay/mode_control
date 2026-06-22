@@ -134,6 +134,13 @@ export const de = {
     notificationBody: 'Zeit, deine Stimmung im Tagebuch festzuhalten.',
     reminderChannelName: 'Erinnerungen',
   },
+  privacyConsent: {
+    title: 'Datenschutzerklärung',
+    message:
+      'Dies ist unsere Datenschutzerklärung. Bitte lesen Sie sie und akzeptieren Sie sie, um die App zu nutzen.',
+    openInBrowser: 'Im Browser öffnen',
+    accept: 'Ich akzeptiere und möchte die App nutzen',
+  },
   privacyPolicy: `Letzte Aktualisierung: Juni 2026
 
 Deine Privatsphäre hat für uns höchste Priorität. Diese Datenschutzerklärung erläutert, wie die App Stimmungstagebuch (die „App") mit deinen Daten umgeht. Unser Ansatz ist einfach: Deine Daten gehören ausschließlich dir.

@@ -134,6 +134,13 @@ export const es = {
     notificationBody: 'Es hora de registrar tu ánimo en el diario.',
     reminderChannelName: 'Recordatorios',
   },
+  privacyConsent: {
+    title: 'Política de privacidad',
+    message:
+      'Esta es nuestra política de privacidad. Léela y acéptala para usar la aplicación.',
+    openInBrowser: 'Abrir en el navegador',
+    accept: 'Acepto y quiero usar la aplicación',
+  },
   privacyPolicy: `Última actualización: junio de 2026
 
 Tu privacidad es nuestra prioridad absoluta. Esta Política de Privacidad explica cómo la aplicación Diario de ánimo (la «Aplicación») trata tus datos. Nuestro enfoque es sencillo: tus datos te pertenecen exclusivamente a ti.

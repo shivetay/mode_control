@@ -134,6 +134,13 @@ export const ro = {
     notificationBody: 'Este timpul să-ți înregistrezi dispoziția în jurnal.',
     reminderChannelName: 'Mementouri',
   },
+  privacyConsent: {
+    title: 'Politica de confidențialitate',
+    message:
+      'Aceasta este politica noastră de confidențialitate. Citește-o și accept-o pentru a folosi aplicația.',
+    openInBrowser: 'Deschide în browser',
+    accept: 'Accept și vreau să folosesc aplicația',
+  },
   privacyPolicy: `Ultima actualizare: iunie 2026
 
 Confidențialitatea ta este prioritatea noastră absolută. Această Politică de confidențialitate explică modul în care aplicația Jurnal de dispoziție («Aplicația») tratează datele tale. Abordarea noastră este simplă: datele tale îți aparțin exclusiv ție.

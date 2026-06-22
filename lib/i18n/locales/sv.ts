@@ -134,6 +134,13 @@ export const sv = {
     notificationBody: 'Dags att logga din stämning i dagboken.',
     reminderChannelName: 'Påminnelser',
   },
+  privacyConsent: {
+    title: 'Integritetspolicy',
+    message:
+      'Det här är vår integritetspolicy. Läs den och godkänn den för att använda appen.',
+    openInBrowser: 'Öppna i webbläsaren',
+    accept: 'Jag godkänner och vill använda appen',
+  },
   privacyPolicy: `Senast uppdaterad: juni 2026
 
 Din integritet är vår absoluta prioritet. Denna integritetspolicy förklarar hur appen Stämningsdagbok («Appen») hanterar dina uppgifter. Vårt tillvägagångssätt är enkelt: dina uppgifter tillhör enbart dig.

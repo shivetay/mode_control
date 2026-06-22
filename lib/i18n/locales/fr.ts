@@ -134,6 +134,13 @@ export const fr = {
     notificationBody: "Il est temps d'enregistrer votre humeur dans le journal.",
     reminderChannelName: 'Rappels',
   },
+  privacyConsent: {
+    title: 'Politique de confidentialité',
+    message:
+      'Voici notre politique de confidentialité. Veuillez la lire et l’accepter pour utiliser l’application.',
+    openInBrowser: 'Ouvrir dans le navigateur',
+    accept: 'J’accepte et je souhaite utiliser l’application',
+  },
   privacyPolicy: `Dernière mise à jour : juin 2026
 
 Votre vie privée est notre priorité absolue. Cette Politique de confidentialité explique comment l'application Journal des humeurs (l'« Application ») traite vos données. Notre approche est simple : vos données vous appartiennent exclusivement.

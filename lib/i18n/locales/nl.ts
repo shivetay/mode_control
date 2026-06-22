@@ -134,6 +134,13 @@ export const nl = {
     notificationBody: 'Tijd om je stemming in het dagboek te registreren.',
     reminderChannelName: 'Herinneringen',
   },
+  privacyConsent: {
+    title: 'Privacybeleid',
+    message:
+      'Dit is ons privacybeleid. Lees het en accepteer het om de app te gebruiken.',
+    openInBrowser: 'Openen in browser',
+    accept: 'Ik accepteer en wil de app gebruiken',
+  },
   privacyPolicy: `Laatst bijgewerkt: juni 2026
 
 Je privacy is onze absolute prioriteit. Dit Privacybeleid legt uit hoe de app Stemmingsdagboek (de «App») met je gegevens omgaat. Onze aanpak is eenvoudig: je gegevens behoren uitsluitend aan jou.

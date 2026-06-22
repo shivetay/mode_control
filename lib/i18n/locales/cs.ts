@@ -134,6 +134,13 @@ export const cs = {
     notificationBody: 'Je čas zaznamenat svou náladu do deníku.',
     reminderChannelName: 'Připomínky',
   },
+  privacyConsent: {
+    title: 'Zásady ochrany soukromí',
+    message:
+      'Toto jsou naše zásady ochrany soukromí. Přečtěte si je a přijměte je, abyste mohli aplikaci používat.',
+    openInBrowser: 'Otevřít v prohlížeči',
+    accept: 'Přijímám a chci používat aplikaci',
+  },
   privacyPolicy: `Poslední aktualizace: červen 2026
 
 Vaše soukromí je naší absolutní prioritou. Tyto Zásady ochrany soukromí vysvětlují, jak aplikace Deník nálady („Aplikace") nakládá s vašimi daty. Náš přístup je jednoduchý: vaše data patří výhradně vám.

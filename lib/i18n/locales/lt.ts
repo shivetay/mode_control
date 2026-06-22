@@ -134,6 +134,13 @@ export const lt = {
     notificationBody: 'Laikas užfiksuoti nuotaiką dienoraštyje.',
     reminderChannelName: 'Priminimai',
   },
+  privacyConsent: {
+    title: 'Privatumo politika',
+    message:
+      'Tai mūsų privatumo politika. Perskaitykite ją ir sutikite, kad galėtumėte naudotis programa.',
+    openInBrowser: 'Atidaryti naršyklėje',
+    accept: 'Sutinku ir noriu naudotis programa',
+  },
   privacyPolicy: `Paskutinį kartą atnaujinta: 2026 m. birželis
 
 Jūsų privatumas mums yra absoliutus prioritetas. Ši privatumo politika paaiškina, kaip programa Nuotaikų dienoraštis («Programa») tvarko jūsų duomenis. Mūsų požiūris paprastas: jūsų duomenys priklauso tik jums.

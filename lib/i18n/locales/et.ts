@@ -134,6 +134,13 @@ export const et = {
     notificationBody: 'Aeg salvestada oma meeleolu päevikusse.',
     reminderChannelName: 'Meeldetuletused',
   },
+  privacyConsent: {
+    title: 'Privaatsuspoliitika',
+    message:
+      'See on meie privaatsuspoliitika. Loe see läbi ja nõustu, et rakendust kasutada.',
+    openInBrowser: 'Ava brauseris',
+    accept: 'Nõustun ja soovin rakendust kasutada',
+  },
   privacyPolicy: `Viimati uuendatud: juuni 2026
 
 Sinu privaatsus on meie absoluutne prioriteet. See privaatsuspoliitika selgitab, kuidas rakendus Meeleolupäevik («Rakendus») sinu andmeid käsitleb. Meie lähenemine on lihtne: sinu andmed kuuluvad ainult sulle.

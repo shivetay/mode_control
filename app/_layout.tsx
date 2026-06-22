@@ -1,3 +1,4 @@
+import { AppPrivacyGate } from '@/components/AppPrivacyGate';
 import { DatabaseProvider } from '@/context/DatabaseContext';
 import { useNotificationBootstrap } from '@/hooks/useNotificationBootstrap';
 import { I18nProvider } from '@/lib/i18n/I18nProvider';
@@ -70,7 +71,9 @@ export default function RootLayout() {
   return (
     <DatabaseProvider>
       <I18nProvider>
-        <RootLayoutContent />
+        <AppPrivacyGate>
+          <RootLayoutContent />
+        </AppPrivacyGate>
       </I18nProvider>
     </DatabaseProvider>
   );

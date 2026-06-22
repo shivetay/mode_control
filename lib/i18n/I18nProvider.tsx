@@ -1,5 +1,4 @@
 import { getAppLocale, saveAppLocale } from '@/lib/db/localeRepository';
-import { FALLBACK_LOCALE } from '@/lib/i18n/detectLocale';
 import { scheduleRemindersFromSettings } from '@/lib/notifications/scheduler';
 import {
   createContext,
@@ -21,7 +20,7 @@ type I18nContextValue = Translator & {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: PropsWithChildren) {
-  const [locale, setLocaleState] = useState<AppLocale>(FALLBACK_LOCALE);
+  const [locale, setLocaleState] = useState<AppLocale | null>(null);
 
   useEffect(() => {
     void getAppLocale().then(setLocaleState);
@@ -33,13 +32,20 @@ export function I18nProvider({ children }: PropsWithChildren) {
     await scheduleRemindersFromSettings();
   }, []);
 
-  const value = useMemo<I18nContextValue>(() => {
+  const value = useMemo<I18nContextValue | null>(() => {
+    if (!locale) {
+      return null;
+    }
     const translator = createTranslator(locale);
     return {
       ...translator,
       setLocale,
     };
   }, [locale, setLocale]);
+
+  if (!value) {
+    return null;
+  }
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

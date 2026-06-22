@@ -134,6 +134,13 @@ export const pl = {
     notificationBody: 'Czas zapisać swój nastrój w dzienniku.',
     reminderChannelName: 'Przypomnienia',
   },
+  privacyConsent: {
+    title: 'Polityka prywatności',
+    message:
+      'To jest nasza polityka prywatności. Zapoznaj się z nią i zaakceptuj, aby korzystać z aplikacji.',
+    openInBrowser: 'Otwórz w przeglądarce',
+    accept: 'Akceptuję i chcę korzystać z aplikacji',
+  },
   privacyPolicy: `Ostatnia aktualizacja: Czerwca 2026 r.
 
 Twoja prywatność jest dla nas absolutnym priorytetem. Niniejsza Polityka Prywatności wyjaśnia, w jaki sposób aplikacja Dziennik Nastroju (dalej: „Aplikacja”) traktuje Twoje dane. Nasze podejście jest proste: Twoje dane należą wyłącznie do Ciebie.

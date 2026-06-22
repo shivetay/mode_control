@@ -1,19 +1,21 @@
 {
   "expo": {
-    "name": "Dziennik Nastroju",
-    "slug": "dziennik-nastroju",
+    "name": "Mood Tracker",
+    "slug": "mood-track",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mc",
+    "scheme": "mood-tracker",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.moodtracker.app",
       "infoPlist": {
         "NSUserNotificationsUsageDescription": "Aplikacja wysyła przypomnienia o zapisaniu nastroju o wybranych porach."
       }
     },
     "android": {
+      "package": "com.moodtracker.app",
       "permissions": [
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.RECEIVE_BOOT_COMPLETED",

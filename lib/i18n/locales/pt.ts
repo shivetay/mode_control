@@ -134,6 +134,13 @@ export const pt = {
     notificationBody: 'Está na hora de registar o seu humor no diário.',
     reminderChannelName: 'Lembretes',
   },
+  privacyConsent: {
+    title: 'Política de privacidade',
+    message:
+      'Esta é a nossa política de privacidade. Leia-a e aceite para usar a aplicação.',
+    openInBrowser: 'Abrir no navegador',
+    accept: 'Aceito e quero usar a aplicação',
+  },
   privacyPolicy: `Última atualização: junho de 2026
 
 A sua privacidade é a nossa prioridade absoluta. Esta Política de Privacidade explica como a aplicação Diário de Humor (a «Aplicação») trata os seus dados. A nossa abordagem é simples: os seus dados pertencem exclusivamente a si.

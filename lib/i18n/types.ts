@@ -180,6 +180,12 @@ export type TranslationMessages = {
     all: string;
   };
   settings: SettingsMessages;
+  privacyConsent: {
+    title: string;
+    message: string;
+    openInBrowser: string;
+    accept: string;
+  };
   privacyPolicy: string;
   info: InfoMessages;
   language: LanguageMessages;

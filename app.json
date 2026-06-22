@@ -9,13 +9,13 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.moodtracker.app",
+      "bundleIdentifier": "com.moodtrackerdairy.app",
       "infoPlist": {
         "NSUserNotificationsUsageDescription": "Aplikacja wysyła przypomnienia o zapisaniu nastroju o wybranych porach."
       }
     },
     "android": {
-      "package": "com.moodtracker.app",
+      "package": "com.moodtrackerdairy.app",
       "permissions": [
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.RECEIVE_BOOT_COMPLETED",

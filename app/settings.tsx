@@ -1,8 +1,11 @@
+import { ContentTopAd } from '@/components/ads/ContentTopAd';
+import { StackBottomAd } from '@/components/ads/StackBottomAd';
 import { LanguageSelector } from '@/components/settings/LanguageSelector';
 import { PrivacyPolicyModal } from '@/components/settings/PrivacyPolicyModal';
 import { SettingsCard } from '@/components/settings/SettingsSections';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { getStackScreenScrollPadding } from '@/lib/ads/config';
 import { SUPPORT_EMAIL } from '@/lib/constants/contact';
 import { theme } from '@/lib/constants/theme';
 import type { ReminderFrequency, ReminderSettings } from '@/lib/types';
@@ -16,6 +19,7 @@ import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { ensureNotificationPermissions } from '@/lib/notifications/scheduler';
 import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -27,10 +31,14 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const FREQUENCY_IDS: ReminderFrequency[] = ['every_4h', 'twice_daily', 'once_daily'];
 
 export default function SettingsScreen() {
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const scrollPaddingBottom = getStackScreenScrollPadding(insets.bottom);
   const { messages } = useTranslation();
   const copy = messages.settings;
   const frequencyLabels: Record<ReminderFrequency, string> = {
@@ -51,10 +59,13 @@ export default function SettingsScreen() {
 
   if (loading || !settings || !draft) {
     return (
-      <ScreenContainer scroll={false}>
-        <ScreenHeader title={copy.title} />
-        <ActivityIndicator style={styles.loader} color={theme.colors.primary} />
-      </ScreenContainer>
+      <View style={styles.screen}>
+        <ScreenContainer scroll={false} contentStyle={{ paddingBottom: scrollPaddingBottom }}>
+          <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />
+          <ActivityIndicator style={styles.loader} color={theme.colors.primary} />
+        </ScreenContainer>
+        <StackBottomAd />
+      </View>
     );
   }
 
@@ -124,10 +135,11 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScreenContainer contentStyle={styles.content}>
-      <ScreenHeader title={copy.title} />
+    <View style={styles.screen}>
+      <ScreenContainer contentStyle={{ ...styles.content, paddingBottom: scrollPaddingBottom }}>
+        <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />
 
-      <View style={styles.sections}>
+        <View style={styles.sections}>
         <SettingsCard title={copy.notificationsTitle} icon="notifications-outline">
           <View style={styles.row}>
             <View style={styles.rowText}>
@@ -244,7 +256,10 @@ export default function SettingsScreen() {
       </View>
 
       <PrivacyPolicyModal visible={privacyVisible} onClose={() => setPrivacyVisible(false)} />
-    </ScreenContainer>
+      </ScreenContainer>
+
+      <StackBottomAd />
+    </View>
   );
 }
 
@@ -336,6 +351,10 @@ function TimeField({
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
   loader: {
     flex: 1,
     alignSelf: 'center',

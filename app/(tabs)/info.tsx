@@ -1,7 +1,9 @@
+import { ContentTopAd } from '@/components/ads/ContentTopAd';
 import { SettingsCard } from '@/components/settings/SettingsSections';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { useHelplineRegion } from '@/hooks/useHelplineRegion';
+import { useTabScreenInsets } from '@/hooks/useTabScreenInsets';
 import { getHelplinesForRegion, HELPLINE_REGIONS } from '@/lib/helplines';
 import { getHelplineLineMessage } from '@/lib/i18n/helplines';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
@@ -22,6 +24,7 @@ function formatVerifiedDate(isoDate: string, localeTag: string): string {
 
 export default function InfoScreen() {
   const router = useRouter();
+  const { scrollPaddingBottom } = useTabScreenInsets();
   const { locale, messages } = useTranslation();
   const { region, loading, persist } = useHelplineRegion();
   const copy = messages.info;
@@ -38,8 +41,9 @@ export default function InfoScreen() {
   const countryData = getHelplinesForRegion(region);
 
   return (
-    <ScreenContainer contentStyle={styles.content}>
+    <ScreenContainer contentStyle={{ ...styles.content, paddingBottom: scrollPaddingBottom }}>
       <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />
+      <ContentTopAd />
 
       <View style={styles.section}>
         <Text style={styles.label}>{copy.countryLabel}</Text>

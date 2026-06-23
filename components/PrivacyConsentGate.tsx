@@ -1,7 +1,9 @@
 import { PRIVACY_POLICY_URL } from '@/lib/constants/privacy';
 import { SUPPORT_EMAIL } from '@/lib/constants/contact';
 import { theme } from '@/lib/constants/theme';
+import { FALLBACK_LOCALE } from '@/lib/i18n/detectLocale';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
+import { getMessages } from '@/lib/i18n/translate';
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -15,7 +17,9 @@ type PrivacyConsentGateProps = {
 export function PrivacyConsentGate({ onAccept, accepting }: PrivacyConsentGateProps) {
   const insets = useSafeAreaInsets();
   const { messages } = useTranslation();
-  const copy = messages.privacyConsent;
+  const fallback = getMessages(FALLBACK_LOCALE);
+  const copy = messages.privacyConsent ?? fallback.privacyConsent;
+  const privacyPolicy = messages.privacyPolicy ?? fallback.privacyPolicy;
 
   const openInBrowser = () => {
     void WebBrowser.openBrowserAsync(PRIVACY_POLICY_URL);
@@ -40,7 +44,7 @@ export function PrivacyConsentGate({ onAccept, accepting }: PrivacyConsentGatePr
           contentContainerStyle={styles.policyContent}
           showsVerticalScrollIndicator={false}>
           <Text style={styles.policyBody}>
-            {messages.privacyPolicy.replace('lddev@outlook.com', SUPPORT_EMAIL)}
+            {privacyPolicy.replace('lddev@outlook.com', SUPPORT_EMAIL)}
           </Text>
         </ScrollView>
 

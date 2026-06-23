@@ -19,7 +19,8 @@
       "permissions": [
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.RECEIVE_BOOT_COMPLETED",
-        "android.permission.VIBRATE"
+        "android.permission.VIBRATE",
+        "com.google.android.gms.permission.AD_ID"
       ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -56,12 +57,27 @@
           "sounds": []
         }
       ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-2144729765788406~6520232344",
+          "iosAppId": "ca-app-pub-2144729765788406~3260211432"
+        }
+      ],
       "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
+      "ads": {
+        "bottomBannerAndroid": "ca-app-pub-2144729765788406/8557226997",
+        "bottomBannerIos": "ca-app-pub-2144729765788406/9487165282",
+        "inlineBannerAndroid": "ca-app-pub-2144729765788406/9678736973",
+        "inlineBannerIos": "ca-app-pub-2144729765788406/1608675260",
+        "historyMidBannerAndroid": "ca-app-pub-2144729765788406/8365655307",
+        "historyMidBannerIos": "ca-app-pub-2144729765788406/6352479876"
+      },
       "router": {},
       "eas": {
         "projectId": "d37ee61f-a496-420c-b63e-041411cdb9ae"

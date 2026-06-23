@@ -1,3 +1,4 @@
+import { ContentTopAd } from '@/components/ads/ContentTopAd';
 import { NavCard } from '@/components/NavCard';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -14,6 +15,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.screen}>
       <ScreenHeader title={messages.appName} showBack={false} />
+      <ContentTopAd />
 
       <ScreenContainer contentStyle={styles.content}>
         <View style={styles.welcome}>

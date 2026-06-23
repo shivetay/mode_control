@@ -1,4 +1,5 @@
 import { getAppLocale, saveAppLocale } from '@/lib/db/localeRepository';
+import { FALLBACK_LOCALE } from '@/lib/i18n/detectLocale';
 import { scheduleRemindersFromSettings } from '@/lib/notifications/scheduler';
 import {
   createContext,
@@ -14,6 +15,7 @@ import { createTranslator, type Translator } from './translate';
 import type { AppLocale } from './types';
 
 type I18nContextValue = Translator & {
+  ready: boolean;
   setLocale: (locale: AppLocale) => Promise<void>;
 };
 
@@ -21,9 +23,26 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: PropsWithChildren) {
   const [locale, setLocaleState] = useState<AppLocale | null>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    void getAppLocale().then(setLocaleState);
+    let cancelled = false;
+    void getAppLocale()
+      .then((nextLocale) => {
+        if (!cancelled) {
+          setLocaleState(nextLocale);
+          setReady(true);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLocaleState(FALLBACK_LOCALE);
+          setReady(true);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const setLocale = useCallback(async (next: AppLocale) => {
@@ -32,20 +51,16 @@ export function I18nProvider({ children }: PropsWithChildren) {
     await scheduleRemindersFromSettings();
   }, []);
 
-  const value = useMemo<I18nContextValue | null>(() => {
-    if (!locale) {
-      return null;
-    }
-    const translator = createTranslator(locale);
+  const activeLocale = locale ?? FALLBACK_LOCALE;
+
+  const value = useMemo<I18nContextValue>(() => {
+    const translator = createTranslator(activeLocale);
     return {
       ...translator,
+      ready,
       setLocale,
     };
-  }, [locale, setLocale]);
-
-  if (!value) {
-    return null;
-  }
+  }, [activeLocale, ready, setLocale]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

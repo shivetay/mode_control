@@ -1,5 +1,6 @@
 import { AppPrivacyGate } from '@/components/AppPrivacyGate';
 import { DatabaseProvider } from '@/context/DatabaseContext';
+import { useAdsBootstrap } from '@/hooks/useAdsBootstrap';
 import { useNotificationBootstrap } from '@/hooks/useNotificationBootstrap';
 import { I18nProvider } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
@@ -25,6 +26,7 @@ export { ErrorBoundary } from 'expo-router';
 SplashScreen.preventAutoHideAsync();
 
 function RootLayoutContent() {
+  useAdsBootstrap();
   useNotificationBootstrap();
 
   return (

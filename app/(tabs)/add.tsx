@@ -1,17 +1,17 @@
 import { MoodSelector } from '@/components/MoodSelector';
 import { OutlineButton } from '@/components/OutlineButton';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { useTabScreenInsets } from '@/hooks/useTabScreenInsets';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { theme } from '@/lib/constants/theme';
 import { MoodType } from '@/lib/types';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function AddMoodScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
+  const { scrollPaddingBottom } = useTabScreenInsets();
   const { messages } = useTranslation();
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
 
@@ -26,7 +26,7 @@ export default function AddMoodScreen() {
     <View style={styles.screen}>
       <ScreenHeader title={messages.appName} onBack={() => router.replace('/')} />
 
-      <View style={[styles.main, { paddingBottom: insets.bottom + theme.spacing.lg }]}>
+      <View style={[styles.main, { paddingBottom: scrollPaddingBottom }]}>
         <View style={styles.canvas}>
           <Text style={styles.question}>{messages.add.question}</Text>
 

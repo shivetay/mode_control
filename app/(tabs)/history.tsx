@@ -1,3 +1,4 @@
+import { HistoryMidAd } from '@/components/ads/HistoryMidAd';
 import { EntryListItem } from '@/components/EntryListItem';
 import { HistoryFilters } from '@/components/HistoryFilters';
 import { PaginationBar } from '@/components/PaginationBar';
@@ -5,6 +6,7 @@ import { SwipePageContainer } from '@/components/SwipePageContainer';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { useDatabaseReady } from '@/context/DatabaseContext';
+import { useTabScreenInsets } from '@/hooks/useTabScreenInsets';
 import { getEntryDates, getMoodEntries, getMoodEntryCount } from '@/lib/db/moodEntries';
 import { theme } from '@/lib/constants/theme';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
@@ -17,6 +19,7 @@ const PAGE_SIZE = 10;
 
 export default function HistoryScreen() {
   const router = useRouter();
+  const { scrollPaddingBottom } = useTabScreenInsets();
   const { messages } = useTranslation();
   const copy = messages.history;
   const ready = useDatabaseReady();
@@ -87,7 +90,7 @@ export default function HistoryScreen() {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer contentStyle={{ paddingBottom: scrollPaddingBottom }}>
       <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />
 
       <View style={styles.headerBlock}>
@@ -101,6 +104,8 @@ export default function HistoryScreen() {
         onChange={handleFilterChange}
         onClear={handleClearFilters}
       />
+
+      <HistoryMidAd />
 
       {loading ? (
         <ActivityIndicator color={theme.colors.text} style={styles.loader} />

@@ -1,32 +1,29 @@
+import { TabBarChrome } from '@/components/ads/TabBarChrome';
 import { theme } from '@/lib/constants/theme';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs, usePathname } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function TabNavigator() {
-  const pathname = usePathname();
   const insets = useSafeAreaInsets();
   const { messages } = useTranslation();
-  const isHome = pathname === '/' || pathname === '/index' || pathname.endsWith('/index');
 
   return (
     <Tabs
+      tabBar={(props) => <TabBarChrome {...props} />}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.textMuted,
-        tabBarStyle: isHome
-          ? { display: 'none' }
-          : {
-              backgroundColor: theme.colors.surface,
-              borderTopColor: theme.colors.outlineVariant,
-              borderTopWidth: 1,
-              height: 52 + Math.max(insets.bottom, 8),
-              paddingTop: 6,
-              paddingBottom: Math.max(insets.bottom, 8),
-              paddingHorizontal: theme.spacing.margin,
-            },
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          borderTopWidth: 0,
+          height: 52 + Math.max(insets.bottom, 8),
+          paddingTop: 6,
+          paddingBottom: Math.max(insets.bottom, 8),
+          paddingHorizontal: theme.spacing.margin,
+        },
         tabBarLabelStyle: {
           fontSize: 10,
           fontWeight: '600',

@@ -1,3 +1,4 @@
+import { ContentTopAd } from '@/components/ads/ContentTopAd';
 import { OutlineButton } from '@/components/OutlineButton';
 import { ScreenContainer } from '@/components/ScreenContainer';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -48,10 +49,12 @@ export default function NotesScreen() {
     <KeyboardAvoidingView
       style={styles.flex}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScreenContainer scroll={false} contentStyle={styles.content}>
-        <ScreenHeader title={copy.title} />
+      <View style={styles.screen}>
+        <ScreenContainer scroll={false} contentStyle={styles.content}>
+          <ScreenHeader title={copy.title} />
+          <ContentTopAd />
 
-        <Text style={styles.description}>{copy.description}</Text>
+          <Text style={styles.description}>{copy.description}</Text>
 
         {mood ? (
           <Text style={styles.moodBadge}>
@@ -83,7 +86,8 @@ export default function NotesScreen() {
           onPress={handleSave}
           loading={saving}
         />
-      </ScreenContainer>
+        </ScreenContainer>
+      </View>
     </KeyboardAvoidingView>
   );
 }
@@ -92,6 +96,9 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  screen: {
+    flex: 1,
   },
   content: {
     flex: 1,

@@ -52,8 +52,9 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingHorizontal: theme.spacing.margin,
+    paddingTop: theme.spacing.lg,
   },
   canvas: {
     width: '100%',

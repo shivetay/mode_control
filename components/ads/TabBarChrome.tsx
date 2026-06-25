@@ -1,5 +1,6 @@
 import { BannerAdSlot } from '@/components/ads/BannerAdSlot';
 import { theme } from '@/lib/constants/theme';
+import { getEffectiveBottomInset } from '@/lib/layout/safeArea';
 import { BottomTabBar, type BottomTabBarProps } from 'expo-router/js-tabs';
 import { usePathname } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
@@ -13,20 +14,21 @@ function isHistoryPath(pathname: string) {
 }
 
 /** Bottom chrome: banner stacked above the tab bar (hidden on home and history). */
-export function TabBarChrome(props: BottomTabBarProps) {
+export function TabBarChrome({ insets, ...props }: BottomTabBarProps) {
   const pathname = usePathname();
   const showBottomAd = !isHistoryPath(pathname);
+  const bottomInset = getEffectiveBottomInset(insets.bottom);
 
   if (isHomePath(pathname)) {
     return null;
   }
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, { paddingBottom: bottomInset }]}>
       {showBottomAd ? (
         <BannerAdSlot placement="bottom" dockedAboveTabBar style={styles.banner} />
       ) : null}
-      <BottomTabBar {...props} />
+      <BottomTabBar {...props} insets={{ ...insets, bottom: 0 }} />
     </View>
   );
 }

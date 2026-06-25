@@ -29,7 +29,7 @@ export default function InfoScreen() {
   const { region, loading, persist } = useHelplineRegion();
   const copy = messages.info;
 
-  if (loading || !region) {
+  if (loading) {
     return (
       <ScreenContainer scroll={false}>
         <ScreenHeader title={copy.title} onBack={() => router.replace('/')} />

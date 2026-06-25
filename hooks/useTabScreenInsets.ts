@@ -1,13 +1,15 @@
 import { getTabScreenScrollPadding } from '@/lib/ads/config';
+import { getEffectiveBottomInset } from '@/lib/layout/safeArea';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function useTabScreenInsets() {
   const insets = useSafeAreaInsets();
-  const scrollPaddingBottom = getTabScreenScrollPadding(insets.bottom);
+  const bottomInset = getEffectiveBottomInset(insets.bottom);
+  const scrollPaddingBottom = getTabScreenScrollPadding(bottomInset);
 
   return {
     topInset: insets.top,
-    bottomInset: insets.bottom,
+    bottomInset,
     scrollPaddingBottom,
   };
 }

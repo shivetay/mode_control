@@ -1,15 +1,12 @@
 import * as SQLite from 'expo-sqlite';
 
 let db: SQLite.SQLiteDatabase | null = null;
+let initPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
-export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
-  if (db) {
-    return db;
-  }
+async function openDatabase(): Promise<SQLite.SQLiteDatabase> {
+  const database = await SQLite.openDatabaseAsync('dziennik_nastroju.db');
 
-  db = await SQLite.openDatabaseAsync('dziennik_nastroju.db');
-
-  await db.execAsync(`
+  await database.execAsync(`
     CREATE TABLE IF NOT EXISTS mood_entries (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       mood TEXT NOT NULL,
@@ -24,5 +21,20 @@ export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
     );
   `);
 
-  return db;
+  return database;
+}
+
+export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
+  if (db) {
+    return db;
+  }
+
+  if (!initPromise) {
+    initPromise = openDatabase().then((database) => {
+      db = database;
+      return database;
+    });
+  }
+
+  return initPromise;
 }

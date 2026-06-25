@@ -1,12 +1,11 @@
 import { TabBarChrome } from '@/components/ads/TabBarChrome';
+import { TAB_BAR_CONTENT_HEIGHT } from '@/lib/ads/config';
 import { theme } from '@/lib/constants/theme';
 import { useTranslation } from '@/lib/i18n/I18nProvider';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function TabNavigator() {
-  const insets = useSafeAreaInsets();
   const { messages } = useTranslation();
 
   return (
@@ -19,9 +18,9 @@ function TabNavigator() {
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
           borderTopWidth: 0,
-          height: 52 + Math.max(insets.bottom, 8),
+          height: TAB_BAR_CONTENT_HEIGHT,
           paddingTop: 6,
-          paddingBottom: Math.max(insets.bottom, 8),
+          paddingBottom: 0,
           paddingHorizontal: theme.spacing.margin,
         },
         tabBarLabelStyle: {
